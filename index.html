@@ -3,61 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <!-- Add this line to link your CSS -->
+    <meta name="description" content="Alice Mancosu - Minimalist UX Design Portfolio">
+    <title>Alice Mancosu | UX Design Portfolio</title>
+    <!-- Google Fonts: Momo Trust Display & Space Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Link to CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header>
-        <h1>Your Name</h1>
-        <p>Developer & Designer</p> <!-- Change this to your title! -->
-        <nav>
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-        </nav>
+    <!-- Header Bar -->
+    <header class="header-bar">
+        <div class="header-container">
+            <!-- Logo & Name Left -->
+            <a href="#home" class="brand">
+                <svg class="brand-logo" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="2" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2.5"/>
+                    <circle cx="12" cy="12" r="4" fill="currentColor"/>
+                </svg>
+                <span class="brand-name">Alice Mancosu</span>
+            </a>
+
+            <!-- Navigation Menu Right -->
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link trn active" data-en="Home" data-it="Home">Home</a></li>
+                    
+                    <!-- Projects Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a href="#projects" class="nav-link dropdown-toggle trn" data-en="Projects" data-it="Progetti">
+                            Projects 
+                            <svg class="chevron-icon" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="project1.html" class="dropdown-item trn" data-en="Project 1" data-it="Progetto 1">Project 1</a></li>
+                            <li><a href="project2.html" class="dropdown-item trn" data-en="Project 2" data-it="Progetto 2">Project 2</a></li>
+                            <li><a href="project3.html" class="dropdown-item trn" data-en="Project 3" data-it="Progetto 3">Project 3</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="#about" class="nav-link trn" data-en="About Me" data-it="Chi Sono">About Me</a></li>
+                </ul>
+            </nav>
+
+            <!-- Language Switcher & Hamburger Toggle -->
+            <div class="header-actions">
+                <div class="lang-switcher">
+                    <!-- UK Flag Button -->
+                    <button class="lang-btn active" id="lang-en" aria-label="Change language to English">
+                        <svg class="flag-icon" viewBox="0 0 60 30" width="24" height="12">
+                            <clipPath id="s">
+                                <rect width="60" height="30"/>
+                            </clipPath>
+                            <g clip-path="url(#s)">
+                                <rect width="60" height="30" fill="#012169"/>
+                                <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+                                <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="2"/>
+                                <path d="M0,15 L60,15 M30,0 L30,30" stroke="#fff" stroke-width="10"/>
+                                <path d="M0,15 L60,15 M30,0 L30,30" stroke="#C8102E" stroke-width="6"/>
+                            </g>
+                        </svg>
+                    </button>
+                    <!-- Italian Flag Button -->
+                    <button class="lang-btn" id="lang-it" aria-label="Cambia lingua in Italiano">
+                        <svg class="flag-icon" viewBox="0 0 3 2" width="18" height="12">
+                            <rect width="1" height="2" fill="#009246"/>
+                            <rect x="1" width="1" height="2" fill="#F1F2F1"/>
+                            <rect x="2" width="1" height="2" fill="#CE2B37"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Mobile Hamburger Menu Button -->
+                <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
     </header>
 
-    <!-- About Me Section -->
-    <section id="about">
-        <h2>About Me</h2>
-        <p>
-            <!-- REPLACE THIS: Paste the "About Me" bio you drafted earlier here. -->
-            This is where you describe who you are, what you do, and what you're passionate about. Keep it concise and friendly!
-        </p>
-    </section>
+    <!-- Main Content Area -->
+    <main id="home" class="main-layout">
+        <!-- Hero / Main Section -->
+        <section class="hero-section">
+            <div class="hero-container">
+                <!-- Hero Left: Text & Bio -->
+                <div class="hero-text">
+                    <span class="hero-subtitle trn" data-en="hello, i am alice and this is my" data-it="ciao, sono alice e questo è il mio">
+                        hello, i am alice and this is my
+                    </span>
+                    <h1 class="hero-title trn" data-en="UX Design Portfolio" data-it="Portfolio di UX Design">
+                        UX Design Portfolio
+                    </h1>
+                    
+                    <!-- Bio Description (Shortened by half) -->
+                    <div class="hero-bio">
+                        <p class="trn" 
+                           data-en="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum arcu ac pretium vulputate. Duis egestas augue id metus tempus, ut lacinia nisl porta. In hendrerit tortor et massa efficitur, ut scelerisque felis feugiat. Nunc vulputate erat eu odio efficitur convallis. Ut nec ex ac enim gravida elementum ac id nulla. Sed ut mi sollicitudin, congue urna tristique, tristique leo. Curabitur vel metus sem."
+                           data-it="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum arcu ac pretium vulputate. Duis egestas augue id metus tempus, ut lacinia nisl porta. In hendrerit tortor et massa efficitur, ut scelerisque felis feugiat. Nunc vulputate erat eu odio efficitur convallis. Ut nec ex ac enim gravida elementum ac id nulla. Sed ut mi sollicitudin, congue urna tristique, tristique leo. Curabitur vel metus sem.">
+                           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum arcu ac pretium vulputate. Duis egestas augue id metus tempus, ut lacinia nisl porta. In hendrerit tortor et massa efficitur, ut scelerisque felis feugiat. Nunc vulputate erat eu odio efficitur convallis. Ut nec ex ac enim gravida elementum ac id nulla. Sed ut mi sollicitudin, congue urna tristique, tristique leo. Curabitur vel metus sem.
+                        </p>
+                    </div>
 
-    <!-- Projects Section -->
-    <section id="projects">
-        <h2>My Projects</h2>
-        <div class="project">
-            <h3>Project One Title</h3> <!-- REPLACE THIS -->
-            <p>A brief description of your first project. What did you build and with what technologies?</p> <!-- REPLACE THIS -->
-            <a href="#">Link to Project / Live Demo</a> <!-- REPLACE '#' with your actual project URL -->
-        </div>
-        <div class="project">
-            <h3>Project Two Title</h3> <!-- REPLACE THIS -->
-            <p>A brief description of your second project.</p> <!-- REPLACE THIS -->
-            <a href="#">Link to Project</a> <!-- REPLACE '#' -->
-        </div>
-        <!-- Add more <div class="project"> blocks as needed -->
-    </section>
+                    <!-- 4 Rounded Pill Buttons -->
+                    <div class="hero-actions-row">
+                        <button class="pill-btn secondary trn" data-en="Resume" data-it="Curriculum">Resume</button>
+                        <button class="pill-btn secondary trn" data-en="About Me" data-it="Chi Sono">About Me</button>
+                        <button class="pill-btn secondary trn" data-en="LinkedIn" data-it="LinkedIn">LinkedIn</button>
+                        <button class="pill-btn primary trn" data-en="Contact Me" data-it="Contattami">Contact Me</button>
+                    </div>
+                </div>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <h2>Get in Touch</h2>
-        <p>Feel free to reach out!</p>
-        <ul>
-            <li>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></li> <!-- REPLACE THIS -->
-            <li>GitHub: <a href="https://github.com/yourusername">yourusername</a></li> <!-- REPLACE THIS -->
-            <li>LinkedIn: <a href="https://linkedin.com/in/yourprofile">Your Profile</a></li> <!-- REPLACE THIS -->
-        </ul>
-    </section>
+                <!-- Hero Right: Picture -->
+                <div class="hero-media">
+                    <div class="profile-image-placeholder">
+                        <svg class="placeholder-avatar" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 6C13.93 6 15.5 7.57 15.5 9.5C15.5 11.43 13.93 13 12 13C10.07 13 8.5 11.43 8.5 9.5C8.5 7.57 10.07 6 12 6ZM12 20C9.08 20 6.55 18.5 5.12 16.23C5.17 13.9 9.8 12.62 12 12.62C14.19 12.62 18.82 13.9 18.88 16.23C17.45 18.5 14.92 20 12 20Z" fill="currentColor"/>
+                        </svg>
+                        <span class="placeholder-text trn" data-en="Profile Picture Placeholder" data-it="Segnaposto Foto Profilo">Profile Picture Placeholder</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Display Section -->
+        <section id="projects" class="projects-section">
+            <h2 class="section-title trn" data-en="Featured Projects" data-it="Progetti in Evidenza">Featured Projects</h2>
+            
+            <div class="projects-grid">
+                
+                <!-- Project Card 1 (Image Right, Text Left) -->
+                <article class="project-card image-right">
+                    <div class="project-info">
+                        <span class="project-tag trn" data-en="UX Research & Prototyping" data-it="Ricerca UX & Prototipazione">UX Research & Prototyping</span>
+                        <h3 class="project-title">
+                            <a href="project1.html" class="trn" data-en="Project One" data-it="Progetto Uno">Project One</a>
+                        </h3>
+                        <p class="project-desc trn" 
+                           data-en="A comprehensive study into user habits and friction points during service onboarding. Through detailed empathy mapping and iterative low-fidelity wireframing, the redesign reduced user drop-off rate by 24%."
+                           data-it="Uno studio approfondito sulle abitudini degli utenti e sui punti di attrito durante l'attivazione del servizio. Attraverso una mappatura dettagliata dell'empatia e wireframe iterativi a bassa fedeltà, il restyling ha ridotto il tasso di abbandono degli utenti del 24%.">
+                            A comprehensive study into user habits and friction points during service onboarding. Through detailed empathy mapping and iterative low-fidelity wireframing, the redesign reduced user drop-off rate by 24%.
+                        </p>
+                        <div class="project-meta">
+                            <span class="pill-badge trn" data-en="User Research" data-it="Ricerca Utente">User Research</span>
+                            <span class="pill-badge trn" data-en="Wireframes" data-it="Wireframe">Wireframes</span>
+                            <span class="pill-badge trn" data-en="Figma" data-it="Figma">Figma</span>
+                        </div>
+                    </div>
+                    <div class="project-visual">
+                        <a href="project1.html" class="project-img-wrapper" aria-label="View Project One">
+                            <div class="project-image-placeholder">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                                    <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/>
+                                    <path d="M21 15L16 10L5 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="placeholder-tag trn" data-en="Project 1 Image" data-it="Immagine Progetto 1">Project 1 Image</span>
+                            </div>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Project Card 2 (Image Left, Text Right - FLIPPED LAYOUT) -->
+                <article class="project-card image-left">
+                    <div class="project-visual">
+                        <a href="project2.html" class="project-img-wrapper" aria-label="View Project Two">
+                            <div class="project-image-placeholder">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                                    <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/>
+                                    <path d="M21 15L16 10L5 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="placeholder-tag trn" data-en="Project 2 Image" data-it="Immagine Progetto 2">Project 2 Image</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-tag trn" data-en="Interaction Design" data-it="Interaction Design">Interaction Design</span>
+                        <h3 class="project-title">
+                            <a href="project2.html" class="trn" data-en="Project Two" data-it="Progetto Due">Project Two</a>
+                        </h3>
+                        <p class="project-desc trn" 
+                           data-en="Designing a clean mobile interface for smart home appliance control. Heavy focus on information hierarchy, accessible color contrast ratios, and establishing highly interactive responsive visual states."
+                           data-it="Progettazione di un'interfaccia mobile pulita per il controllo di elettrodomestici intelligenti. Forte attenzione alla gerarchia delle informazioni, rapporti di contrasto dei colori accessibili e creazione di stati visivi interattivi altamente reattivi.">
+                            Designing a clean mobile interface for smart home appliance control. Heavy focus on information hierarchy, accessible color contrast ratios, and establishing highly interactive responsive visual states.
+                        </p>
+                        <div class="project-meta">
+                            <span class="pill-badge trn" data-en="UI Systems" data-it="Sistemi UI">UI Systems</span>
+                            <span class="pill-badge trn" data-en="Interaction" data-it="Interazione">Interaction</span>
+                            <span class="pill-badge trn" data-en="Accessibility" data-it="Accessibilità">Accessibility</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project Card 3 (Image Right, Text Left) -->
+                <article class="project-card image-right">
+                    <div class="project-info">
+                        <span class="project-tag trn" data-en="Mobile App Strategy" data-it="Strategia App Mobile">Mobile App Strategy</span>
+                        <h3 class="project-title">
+                            <a href="project3.html" class="trn" data-en="Project Three" data-it="Progetto Tre">Project Three</a>
+                        </h3>
+                        <p class="project-desc trn" 
+                           data-en="Solving logistical friction for localized community swap networks. Conducted active user surveys, created interactive high-fidelity user flows, and completed validation usability testing."
+                           data-it="Risoluzione dell'attrito logistico per le reti di scambio di comunità localizzate. Condotto sondaggi attivi sugli utenti, creato flussi di utenti interattivi ad alta fedeltà e completato test di usabilità di validazione.">
+                            Solving logistical friction for localized community swap networks. Conducted active user surveys, created interactive high-fidelity user flows, and completed validation usability testing.
+                        </p>
+                        <div class="project-meta">
+                            <span class="pill-badge trn" data-en="Usability Testing" data-it="Test di Usabilità">Usability Testing</span>
+                            <span class="pill-badge trn" data-en="User Flows" data-it="Flussi Utente">User Flows</span>
+                            <span class="pill-badge trn" data-en="Prototyping" data-it="Prototipazione">Prototyping</span>
+                        </div>
+                    </div>
+                    <div class="project-visual">
+                        <a href="project3.html" class="project-img-wrapper" aria-label="View Project Three">
+                            <div class="project-image-placeholder">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                                    <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/>
+                                    <path d="M21 15L16 10L5 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="placeholder-tag trn" data-en="Project 3 Image" data-it="Immagine Progetto 3">Project 3 Image</span>
+                            </div>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- About / Secondary Section (Brief Hook) -->
+        <section id="about" class="about-summary-section">
+            <h2 class="section-title trn" data-en="About Me" data-it="Chi Sono">About Me</h2>
+            <div class="about-summary-content">
+                <p class="trn" 
+                   data-en="I am a passionate UX Designer specializing in designing user-centered interfaces that balance visual elegance with robust functionality. Leveraging user research, rapid wireframing, and interactive prototyping, I focus on creating digital experiences that feel intuitive, satisfying, and meaningful."
+                   data-it="Sono una UX Designer appassionata, specializzata nella progettazione di interfacce incentrate sull'utente che bilanciano l'eleganza visiva con una robusta funzionalità. Sfruttando la ricerca utente, wireframe rapidi e prototipi interattivi, mi concentro sulla creazione di esperienze digitali che risultino intuitive, soddisfacenti e significative.">
+                    I am a passionate UX Designer specializing in designing user-centered interfaces that balance visual elegance with robust functionality. Leveraging user research, rapid wireframing, and interactive prototyping, I focus on creating digital experiences that feel intuitive, satisfying, and meaningful.
+                </p>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer>
-        <p>© 2024 Your Name. All rights reserved.</p> <!-- REPLACE THIS -->
+    <footer class="footer-bar">
+        <div class="footer-container">
+            <p class="copyright trn" data-en="© 2026 Alice Mancosu. All rights reserved." data-it="© 2026 Alice Mancosu. Tutti i diritti riservati.">
+                © 2026 Alice Mancosu. All rights reserved.
+            </p>
+            <a href="#home" class="back-to-top trn" data-en="Back to top ↑" data-it="Torna su ↑">Back to top ↑</a>
+        </div>
     </footer>
+
+    <!-- Link to JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>

@@ -30,12 +30,33 @@
     /* Layout */
     --sidebar-width: 68px;
     --sidebar-width-xl: 275px;
-    --timeline-max-width: 600px;
+    --timeline-min-width: 500px;
+    --timeline-max-width: 770px;
     --right-sidebar-width: 350px;
 
     /* Transitions */
     --transition-fast: 0.2s ease;
     --transition-normal: 0.3s ease;
+}
+
+[data-theme="dark"] {
+    --color-bg: #0b0f0d;
+    --color-bg-hover: #1c2733;
+    --color-bg-hover-btn: #2d3b48;
+    --color-bg-secondary: #253341;
+    --color-border: #2d3b48;
+    --color-text-primary: #bcc2c0;
+    --color-text-secondary: #71767b;
+
+    --color-accent: #059669;
+    --color-accent-hover: #047857;
+    --color-accent-light: rgba(5, 150, 105, 0.15);
+
+    --color-like: #f91880;
+    --color-like-bg: rgba(249, 24, 128, 0.1);
+
+    --color-repost: #00ba7c;
+    --color-repost-bg: rgba(0, 186, 124, 0.1);
 }
 
 /* Reset */
@@ -62,7 +83,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Momo Trust Display', 'Space Grotesk', sans-serif;
     font-weight: 700;
     color: var(--color-text-primary);
-    letter-spacing: -0.02em;
+    letter-spacing: 0.02em;
 }
 
 a {
@@ -83,7 +104,7 @@ button {
 }
 
 /* ==========================================================================
-   2. App Shell — 3-Column Layout
+   2. App Shell — 3-Column Layout (1:3:1 ratio)
    ========================================================================== */
 .app-shell {
     display: flex;
@@ -100,7 +121,7 @@ button {
     position: sticky;
     top: 0;
     height: 100vh;
-    width: var(--sidebar-width);
+    flex: 0 0 var(--sidebar-width);
     border-right: 1px solid var(--color-border);
     flex-shrink: 0;
     z-index: 100;
@@ -225,7 +246,8 @@ button {
    4. TIMELINE — Center Column
    ========================================================================== */
 .timeline {
-    flex: 1;
+    flex: 1 1 0;
+    min-width: var(--timeline-min-width);
     max-width: var(--timeline-max-width);
     min-height: 100vh;
     border-right: 1px solid var(--color-border);
@@ -237,7 +259,7 @@ button {
     position: sticky;
     top: 0;
     z-index: 50;
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: var(--color-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     padding: 0.75rem 1rem;
@@ -296,6 +318,7 @@ button {
     font-family: 'Momo Trust Display', 'Space Grotesk', sans-serif;
     font-weight: 700;
     font-size: 0.95rem;
+    letter-spacing: 0.02em;
     color: var(--color-text-primary);
 }
 
@@ -396,6 +419,7 @@ button {
     font-family: 'Momo Trust Display', 'Space Grotesk', sans-serif;
     font-size: 1rem;
     font-weight: 700;
+    letter-spacing: 0.02em;
     color: var(--color-text-primary);
 }
 
@@ -409,8 +433,17 @@ button {
     overflow: hidden;
 }
 
-#plants-thumbnail {
-    height: auto !important;
+#plants-card .tweet-card-image {
+    height: 130px;
+    min-height: 130px;
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+#plants-card .tweet-card-image #plants-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 #plants-card .tweet-card-info {
@@ -445,12 +478,14 @@ button {
 .projects-section-header {
     font-size: 1.25rem;
     font-weight: 700;
-    padding: 1rem 1rem 0.5rem 1rem;
+    padding: 0.75rem 1rem;
     margin: 0;
     position: sticky;
     top: 0;
     z-index: 51;
     background-color: var(--color-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border);
 }
 
@@ -460,19 +495,15 @@ button {
 .profile-section-header {
     font-size: 1.25rem;
     font-weight: 700;
-    padding: 1rem 1rem 0.5rem 1rem;
+    padding: 0.75rem 1rem;
     margin: 0;
     position: sticky;
     top: 0;
     z-index: 52;
     background-color: var(--color-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border);
-}
-
-.profile-section {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 .profile-post {
@@ -525,9 +556,9 @@ button {
     font-family: 'Momo Trust Display', 'Space Grotesk', sans-serif;
     font-size: 1.5rem;
     font-weight: 700;
+    letter-spacing: 0.02em;
     color: var(--color-text-primary);
     margin: 0.75rem 0 0 0;
-    letter-spacing: -0.02em;
 }
 
 .profile-post-handle {
@@ -576,6 +607,27 @@ button {
     gap: 0;
     margin-top: 1.5rem;
     border-bottom: 1px solid var(--color-border);
+    position: relative;
+}
+
+.profile-tabs::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    height: 2px;
+    width: 50%;
+    background-color: var(--color-accent);
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+.profile-tabs[data-active="history"]::after {
+    transform: translateX(0);
+}
+
+.profile-tabs[data-active="skills"]::after {
+    transform: translateX(100%);
 }
 
 .profile-tab {
@@ -588,8 +640,10 @@ button {
     font-weight: 600;
     color: var(--color-text-secondary);
     cursor: pointer;
-    transition: color 0.15s, border-color 0.15s;
+    transition: color 0.15s;
     font-family: inherit;
+    position: relative;
+    z-index: 2;
 }
 
 .profile-tab:hover {
@@ -597,8 +651,7 @@ button {
 }
 
 .profile-tab.active {
-    color: var(--color-text-primary);
-    border-bottom-color: var(--color-accent);
+    color: var(--color-accent);
 }
 
 .profile-tab-content {
@@ -614,7 +667,7 @@ button {
     grid-column: 1;
     visibility: hidden;
     opacity: 0;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     color: var(--color-text-primary);
     line-height: 1.6;
     transition: opacity 0.2s;
@@ -625,19 +678,57 @@ button {
     opacity: 1;
 }
 
+/* Skills Categories */
+.skills-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.skill-category {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.skill-category-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-secondary);
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.skill-tag {
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.3rem 0.75rem;
+    border-radius: 9999px;
+    background-color: var(--color-accent-light);
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    white-space: nowrap;
+}
+
 /* History Timeline */
 .history-timeline {
     position: relative;
-    padding-left: 1.25rem;
+    padding-left: 2.5rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .history-timeline::before {
     content: '';
     position: absolute;
-    left: 4px;
+    left: 20px;
     top: 0.5rem;
     bottom: 0.5rem;
     width: 2px;
@@ -648,13 +739,31 @@ button {
     position: relative;
 }
 
+.history-event-icon {
+    position: absolute;
+    left: -2.5rem;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-bg);
+    z-index: 1;
+}
+
+.history-event-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
 .history-event::before {
     content: '';
     position: absolute;
-    left: -1.25rem;
-    top: 0.5rem;
-    width: 10px;
-    height: 10px;
+    left: -2.5rem;
+    top: 0;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background-color: var(--color-accent);
     border: 2px solid var(--color-bg);
@@ -663,18 +772,29 @@ button {
 .history-event-year {
     font-weight: 700;
     color: var(--color-accent);
-    font-size: 0.85rem;
+    font-size: 0.95rem;
 }
 
 .history-event-title {
     font-weight: 600;
     color: var(--color-text-primary);
-    font-size: 0.85rem;
+    font-size: 0.95rem;
 }
 
 .history-event-subtitle {
     color: var(--color-text-secondary);
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+}
+
+.history-event-continues::after {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: calc(100% + 0.5rem);
+    bottom: 0;
+    width: 2px;
+    background-color: var(--color-border);
+    z-index: -1;
 }
 
 @media (max-width: 420px) {
@@ -747,9 +867,9 @@ button {
     font-family: 'Momo Trust Display', 'Space Grotesk', sans-serif;
     font-size: 2rem;
     font-weight: 700;
+    letter-spacing: 0.02em;
     color: var(--color-text-primary);
     margin: 0;
-    letter-spacing: -0.02em;
 }
 
 .cover-post-handle-row {
@@ -891,7 +1011,7 @@ button {
    8. RIGHT SIDEBAR — Profile Card & Links
    ========================================================================== */
 .right-sidebar {
-    width: var(--right-sidebar-width);
+    flex: 0 0 var(--right-sidebar-width);
     flex-shrink: 0;
     padding: 1rem 1.5rem;
     position: sticky;
@@ -936,6 +1056,7 @@ button {
     font-family: 'Momo Trust Display', 'Space Grotesk', sans-serif;
     font-weight: 700;
     font-size: 1.1rem;
+    letter-spacing: 0.02em;
     color: var(--color-text-primary);
 }
 
@@ -1026,6 +1147,37 @@ button {
     border-radius: 2px;
 }
 
+.theme-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+    background: none;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.theme-btn:hover {
+    background-color: var(--color-bg-hover);
+    color: var(--color-text-primary);
+}
+
+.theme-icon-moon {
+    display: none;
+}
+
+[data-theme="dark"] .theme-icon-moon {
+    display: block;
+}
+
+[data-theme="dark"] .theme-icon-sun {
+    display: none;
+}
+
 /* Footer */
 .right-sidebar-footer {
     margin-top: auto;
@@ -1039,162 +1191,214 @@ button {
    9. Responsive Breakpoints
    ========================================================================== */
 
-/* Hide right sidebar below 1100px */
-@media (max-width: 1100px) {
-    .right-sidebar {
-        display: none;
-    }
+   /* Desktop (≥1130px): full layout, left sidebar expanded with labels */
+   @media (min-width: 1130px) {
+       .app-shell {
+           max-width: 1280px;
+       }
+       .sidebar {
+           flex: 0 0 var(--sidebar-width-xl);
+       }
+       .sidebar-inner {
+           align-items: flex-start;
+           padding: 1rem 1rem 1.5rem 1rem;
+       }
+       .sidebar-logo {
+           margin-left: 0.5rem;
+       }
+       .sidebar-nav {
+           align-items: flex-start;
+           width: 100%;
+       }
+       .sidebar-nav-item {
+           width: auto;
+           border-radius: 9999px;
+           padding: 0 1.25rem;
+           gap: 1rem;
+       }
+       .nav-label {
+           display: inline;
+           font-size: 1.1rem;
+           font-weight: 400;
+       }
+       .sidebar-nav-item.active .nav-label {
+           font-weight: 700;
+       }
+       .sidebar-nav-item::after {
+           display: none;
+       }
+       .sidebar-post-btn {
+           width: 100%;
+           border-radius: 9999px;
+           font-size: 1rem;
+           height: auto;
+           padding: 0.85rem 1.5rem;
+       }
+       .sidebar-post-btn::before {
+           content: none;
+       }
+   }
 
-    .timeline {
-        border-right: none;
-    }
+   /* Narrow desktop (≤1129px): right sidebar hidden, left sidebar collapsed */
+   @media (max-width: 1129px) {
+       .right-sidebar {
+           display: none;
+       }
+       .timeline {
+           border-right: none;
+           border-left: none;
+       }
+       .sidebar {
+           flex: 0 0 var(--sidebar-width);
+       }
+       .sidebar-inner {
+           align-items: center;
+           padding: 1rem 0 1.5rem 0;
+       }
+       .sidebar-logo {
+           margin-left: 0;
+       }
+       .sidebar-nav {
+           align-items: center;
+       }
+       .sidebar-nav-item {
+           width: 50px;
+           border-radius: 50%;
+           padding: 0;
+           gap: 0;
+       }
+       .nav-label {
+           display: none;
+       }
+       .sidebar-nav-item::after {
+           display: block;
+       }
+       .sidebar-post-btn {
+           width: 50px;
+           border-radius: 50%;
+           font-size: 0;
+           height: 50px;
+           padding: 0;
+       }
+       .sidebar-post-btn::before {
+           content: '+';
+       }
+   }
+
+   /* Mobile (≤600px): bottom nav bar */
+   @media (max-width: 600px) {
+       .app-shell {
+           flex-direction: column;
+       }
+       .sidebar {
+           position: fixed;
+           bottom: 0;
+           top: auto;
+           left: 0;
+           width: 100%;
+           height: 56px;
+           border-right: none;
+           border-top: 1px solid var(--color-border);
+           background-color: var(--color-bg);
+           z-index: 200;
+           flex: none;
+       }
+       .sidebar-inner {
+           flex-direction: row;
+           justify-content: space-around;
+           align-items: center;
+           padding: 0;
+           height: 100%;
+       }
+       .sidebar-logo {
+           display: none;
+       }
+       .sidebar-post-btn {
+           display: none;
+       }
+       .sidebar-nav {
+           flex-direction: row;
+           gap: 0;
+           width: 100%;
+           justify-content: space-around;
+           margin-top: 0;
+       }
+       .sidebar-nav-item {
+           width: 44px;
+           height: 44px;
+       }
+       .sidebar-nav-item::after {
+           display: none;
+       }
+       .timeline {
+           padding-bottom: 60px;
+       }
+       .home-header {
+           padding: 0.6rem 1rem;
+       }
+   }
+
+   /* Tiny screens */
+   @media (max-width: 420px) {
+       html {
+           font-size: 14px;
+       }
+       .tweet {
+           padding: 0.75rem 0.75rem 0 0.75rem;
+       }
+       .tweet-card {
+           flex-direction: column;
+       }
+       .tweet-card-image {
+           width: 100%;
+           min-height: 100px;
+           border-right: none;
+           border-bottom: 1px solid var(--color-border);
+       }
+       #plants-card .tweet-card-image {
+           aspect-ratio: 1/1;
+           min-height: auto;
+           height: auto;
+       }
+       #plants-card .tweet-card-image #plants-thumbnail {
+           width: 100% !important;
+           height: 100% !important;
+           object-fit: cover;
+       }
+   }
+
+/* ==========================================================================
+   Section Panels — Tab-based Navigation
+   ========================================================================== */
+.section-panel {
+    display: none;
+    min-height: 100vh;
 }
 
-/* Collapse left sidebar below 600px — bottom nav bar instead */
-@media (max-width: 600px) {
-    .app-shell {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        position: fixed;
-        bottom: 0;
-        top: auto;
-        left: 0;
-        width: 100%;
-        height: 56px;
-        border-right: none;
-        border-top: 1px solid var(--color-border);
-        background-color: var(--color-bg);
-        z-index: 200;
-    }
-
-    .sidebar-inner {
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        padding: 0;
-        height: 100%;
-    }
-
-    .sidebar-logo {
-        display: none;
-    }
-
-    .sidebar-post-btn {
-        display: none;
-    }
-
-    .sidebar-nav {
-        flex-direction: row;
-        gap: 0;
-        width: 100%;
-        justify-content: space-around;
-        margin-top: 0;
-    }
-
-    .sidebar-nav-item {
-        width: 44px;
-        height: 44px;
-    }
-
-    .sidebar-nav-item::after {
-        display: none;
-    }
-
-    .timeline {
-        padding-bottom: 60px; /* space for bottom bar */
-    }
-
-    .home-header {
-        padding: 0.6rem 1rem;
-    }
+.section-panel.active {
+    display: block;
+}
+@property --vt-radius {
+    syntax: '<length>';
+    initial-value: 0;
+    inherits: true;
 }
 
-/* Tiny screens */
-@media (max-width: 420px) {
-    html {
-        font-size: 14px;
-    }
-
-    .tweet {
-        padding: 0.75rem 0.75rem 0 0.75rem;
-    }
-
-    .tweet-card {
-        flex-direction: column;
-    }
-
-    .tweet-card-image {
-        width: 100%;
-        min-height: 100px;
-        border-right: none;
-        border-bottom: 1px solid var(--color-border);
-    }
-
-    #plants-card .tweet-card-image {
-        aspect-ratio: 1/1;
-        min-height: auto;
-        height: auto;
-    }
-
-    #plants-card .tweet-card-image #plants-thumbnail {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover;
-    }
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
 }
 
-/* XL screens — expanded sidebar with labels */
-@media (min-width: 1300px) {
-    .sidebar {
-        width: var(--sidebar-width-xl);
-    }
+::view-transition-new(root) {
+    clip-path: circle(var(--vt-radius, 0) at var(--vt-x) var(--vt-y));
+}
 
-    .sidebar-inner {
-        align-items: flex-start;
-        padding: 1rem 1rem 1.5rem 1rem;
-    }
+@keyframes vt-radius {
+    from { --vt-radius: 0; }
+    to { --vt-radius: var(--vt-max-radius); }
+}
 
-    .sidebar-logo {
-        margin-left: 0.5rem;
-    }
-
-    .sidebar-nav {
-        align-items: flex-start;
-        width: 100%;
-    }
-
-    .sidebar-nav-item {
-        width: auto;
-        border-radius: 9999px;
-        padding: 0 1.25rem;
-        gap: 1rem;
-    }
-
-    .nav-label {
-        display: inline;
-        font-size: 1.1rem;
-        font-weight: 400;
-    }
-
-    .sidebar-nav-item.active .nav-label {
-        font-weight: 700;
-    }
-
-    .sidebar-nav-item::after {
-        display: none; /* No tooltip needed when labels are visible */
-    }
-
-    .sidebar-post-btn {
-        width: 100%;
-        border-radius: 9999px;
-        font-size: 1rem;
-        height: auto;
-        padding: 0.85rem 1.5rem;
-    }
-
-    .sidebar-post-btn::before {
-        content: none;
-    }
+::view-transition-new(root) {
+    animation: vt-radius 0.5s ease forwards;
 }

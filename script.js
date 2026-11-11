@@ -58,6 +58,69 @@ document.addEventListener('DOMContentLoaded', () => {
     setLanguage(savedLang || defaultLang);
 
     // ==========================================================================
+    // 1b. Dark / Light Theme Toggle — View Transitions API
+    // ==========================================================================
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('pref-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('pref-theme', theme);
+    }
+
+    function triggerThemeTransition(newTheme) {
+        const btnRect = themeToggle.getBoundingClientRect();
+        const cx = btnRect.left + btnRect.width / 2;
+        const cy = btnRect.top + btnRect.height / 2;
+
+        // Compute max radius to cover farthest viewport corner from button center
+        const dx1 = cx;
+        const dy1 = cy;
+        const dx2 = window.innerWidth - cx;
+        const dy2 = cy;
+        const dx3 = cx;
+        const dy3 = window.innerHeight - cy;
+        const dx4 = window.innerWidth - cx;
+        const dy4 = window.innerHeight - cy;
+        const maxRadius = Math.max(
+            Math.hypot(dx1, dy1),
+            Math.hypot(dx2, dy2),
+            Math.hypot(dx3, dy3),
+            Math.hypot(dx4, dy4)
+        );
+
+        // Start view transition with custom clip-path animation
+        if (!document.startViewTransition) {
+            // Fallback for browsers without View Transitions API
+            applyTheme(newTheme);
+            return;
+        }
+
+        const transition = document.startViewTransition(() => {
+            applyTheme(newTheme);
+        });
+
+        // Wait for the new state to be captured, then set CSS variables for animation
+        transition.ready.then(() => {
+            // Set the origin and max radius on the new view transition pseudo-element
+            document.documentElement.style.setProperty('--vt-x', `${cx}px`);
+            document.documentElement.style.setProperty('--vt-y', `${cy}px`);
+            document.documentElement.style.setProperty('--vt-max-radius', `${maxRadius}px`);
+        });
+    }
+
+    
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            triggerThemeTransition(newTheme);
+        });
+    }
+
+    // ==========================================================================
     // 2. Mobile Responsive Navigation Drawer
     // ==========================================================================
     const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
@@ -165,8 +228,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const plantSlug = plantUrl.replace('https://en.wikipedia.org/wiki/', '');
             console.log(`[Plant of the Day] Day ${dayOfMonth}: ${plantSlug}`);
 
-            const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(plantSlug)}`);
-            if (!res.ok) throw new Error(`Article API returned ${res.status}`);
+            const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(plantSlug)}`, {
+                headers: { 'Accept': 'application/json' }
+            });
+            if (!res.ok) {
+                const errText = await res.text();
+                throw new Error(`Article API returned ${res.status}: ${errText}`);
+            }
             const data = await res.json();
 
             if (plantsText) plantsText.textContent = `Todays featured plant is:`;
@@ -195,10 +263,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             // Mobile: both image and text sections are square
                             tweetCard.style.height = 'unset';
                         } else {
-                            tweetCard.style.height = imgHeight + 'px';
+                            // Desktop: card height is fixed by CSS (130px), no need to set
+                            tweetCard.style.height = 'unset';
                         }
                     }
-                    plantsThumb.parentElement.style.height = imgHeight + 'px';
+                    // On desktop, the container is already 130x130 via CSS
+                    if (!isMobile) {
+                        plantsThumb.parentElement.style.height = 'unset';
+                    } else {
+                        plantsThumb.parentElement.style.height = imgHeight + 'px';
+                    }
 
                     // On mobile, info section is also square (same as image width)
                     if (isMobile) {
@@ -235,6 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     const profileTabs = document.querySelectorAll('.profile-tab');
     const profilePanels = document.querySelectorAll('.profile-tab-panel');
+    const profileTabsContainer = document.querySelector('.profile-tabs');
 
     profileTabs.forEach(tab => {
         tab.addEventListener('click', () => {
@@ -243,61 +318,57 @@ document.addEventListener('DOMContentLoaded', () => {
             profilePanels.forEach(p => p.classList.remove('active'));
             tab.classList.add('active');
             document.querySelector(`.profile-tab-panel[data-panel="${target}"]`).classList.add('active');
-        });
-    });
-
-    loadPlantPost();
-
-    // ==========================================================================
-    // 7. Sidebar Nav — Active State Switching
-    // ==========================================================================
-    const sidebarNavItems = document.querySelectorAll('.sidebar-nav-item');
-
-    sidebarNavItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            sidebarNavItems.forEach(nav => nav.classList.remove('active'));
-            item.classList.add('active');
+            if (profileTabsContainer) {
+                profileTabsContainer.setAttribute('data-active', target);
+            }
         });
     });
 
     // ==========================================================================
-    // 8. Scroll Spy — IntersectionObserver on Content Sections
+    // Like Button Toggle
     // ==========================================================================
-    const sidebarNavLinks = document.querySelectorAll('.sidebar-nav-item');
-    const sectionIds = ['home', 'projects', 'profile'];
-
-    // Collect observable sections, skipping any that don't exist
-    const sections = sectionIds
-        .map(id => document.getElementById(id))
-        .filter(el => el !== null);
-
-    // Build a map from section id to its matching nav link
-    // (skips nav links with no matching section and sections with no matching nav link)
-    const navMap = {};
-    sidebarNavLinks.forEach(link => {
-        const href = link.getAttribute('href').replace('#', '');
-        if (sectionIds.includes(href)) {
-            navMap[href] = link;
-        }
-    });
-
-    // Thin trigger band at the vertical middle of the viewport
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-
-            const sectionId = entry.target.id;
-            const matchedLink = navMap[sectionId];
-            if (!matchedLink) return; // skip sections with no matching nav link
-
-            sidebarNavLinks.forEach(link => link.classList.remove('active'));
-            matchedLink.classList.add('active');
+    document.querySelectorAll('.action-like').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const wasLiked = btn.classList.contains('liked');
+            btn.classList.toggle('liked');
+            if (!wasLiked) {
+                const heart = btn.querySelector('.heart-filled');
+                if (heart) {
+                    heart.style.animation = 'none';
+                    void heart.offsetWidth;
+                    heart.style.animation = '';
+                }
+            }
         });
-    }, {
-        root: null, // viewport — correct whether content scrolls in window or container
-        rootMargin: '-45% 0px -45% 0px', // thin band at vertical middle (45%–55%)
-        threshold: 0
     });
 
-    sections.forEach(section => observer.observe(section));
-});
+    // ==========================================================================
+    // Section Navigation — Tab-based
+    // ==========================================================================
+    const sectionPanels = document.querySelectorAll('.section-panel');
+    const navItems = document.querySelectorAll('.sidebar-nav-item');
+
+    function showSection(sectionId) {
+        sectionPanels.forEach(panel => {
+            panel.classList.toggle('active', panel.getAttribute('data-section') === sectionId);
+        });
+        navItems.forEach(item => {
+            const href = item.getAttribute('href').replace('#', '');
+            item.classList.toggle('active', href === sectionId);
+        });
+        window.scrollTo(0, 0);
+    }
+
+    // Default to home
+    showSection('home');
+
+navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionId = item.getAttribute('href').replace('#', '');
+                showSection(sectionId);
+            });
+        });
+
+        loadPlantPost();
+    });

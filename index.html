@@ -11,6 +11,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Display:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="styles.css">
+    <script>
+        (function () {
+            var saved = localStorage.getItem('pref-theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 </head>
 <body>
     <div class="app-shell">
@@ -60,11 +67,12 @@
         <!-- ============================================================
              CENTER — Timeline Feed
              ============================================================ -->
-        <main class="timeline" id="home">
-            <!-- Sticky Tab Header -->
-            <div class="home-header">
-                <h1 class="home-title trn" data-en="Home" data-it="Home">Home</h1>
-            </div>
+        <main class="timeline">
+            <div class="section-panel active" data-section="home" id="home">
+                <!-- Sticky Tab Header -->
+                <div class="home-header">
+                    <h1 class="home-title trn" data-en="Home" data-it="Home">Home</h1>
+                </div>
 
             <!-- ==================== Profile Post ==================== -->
             <article class="cover-post">
@@ -136,7 +144,7 @@
                             <span>3</span>
                         </button>
                         <button class="tweet-action-btn action-repost" aria-label="Repost">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4.5 3.88L8.07 7.46M4.5 3.88V8.88M4.5 3.88H9.5M19.5 20.12L15.93 16.54M19.5 20.12V15.12M19.5 20.12H14.5M21 10V7C21 5.89 20.11 5 19 5H12M3 14V17C3 18.11 3.89 19 5 19H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
                             <span>7</span>
                         </button>
                         <button class="tweet-action-btn action-like" aria-label="Like">
@@ -189,7 +197,7 @@
                             <span>12</span>
                         </button>
                         <button class="tweet-action-btn action-repost" aria-label="Repost">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4.5 3.88L8.07 7.46M4.5 3.88V8.88M4.5 3.88H9.5M19.5 20.12L15.93 16.54M19.5 20.12V15.12M19.5 20.12H14.5M21 10V7C21 5.89 20.11 5 19 5H12M3 14V17C3 18.11 3.89 19 5 19H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
                             <span>24</span>
                         </button>
                         <button class="tweet-action-btn action-like" aria-label="Like">
@@ -204,8 +212,11 @@
                 </div>
             </article>
 
-            <!-- Projects -->
-            <h1 id="projects" class="projects-section-header trn" data-en="Projects" data-it="Progetti">Projects</h1>
+            </div>
+
+            <div class="section-panel" data-section="projects" id="projects">
+                <!-- Projects -->
+                <h1 class="projects-section-header trn" data-en="Projects" data-it="Progetti">Projects</h1>
 
             <!-- ==================== Tweet 2: Project 1 ==================== -->
             <article class="tweet">
@@ -261,7 +272,7 @@
                             <span>5</span>
                         </button>
                         <button class="tweet-action-btn action-repost" aria-label="Repost">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4.5 3.88L8.07 7.46M4.5 3.88V8.88M4.5 3.88H9.5M19.5 20.12L15.93 16.54M19.5 20.12V15.12M19.5 20.12H14.5M21 10V7C21 5.89 20.11 5 19 5H12M3 14V17C3 18.11 3.89 19 5 19H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
                             <span>12</span>
                         </button>
                         <button class="tweet-action-btn action-like" aria-label="Like">
@@ -328,7 +339,7 @@
                             <span>8</span>
                         </button>
                         <button class="tweet-action-btn action-repost" aria-label="Repost">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4.5 3.88L8.07 7.46M4.5 3.88V8.88M4.5 3.88H9.5M19.5 20.12L15.93 16.54M19.5 20.12V15.12M19.5 20.12H14.5M21 10V7C21 5.89 20.11 5 19 5H12M3 14V17C3 18.11 3.89 19 5 19H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
                             <span>19</span>
                         </button>
                         <button class="tweet-action-btn action-like" aria-label="Like">
@@ -395,7 +406,7 @@
                             <span>2</span>
                         </button>
                         <button class="tweet-action-btn action-repost" aria-label="Repost">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4.5 3.88L8.07 7.46M4.5 3.88V8.88M4.5 3.88H9.5M19.5 20.12L15.93 16.54M19.5 20.12V15.12M19.5 20.12H14.5M21 10V7C21 5.89 20.11 5 19 5H12M3 14V17C3 18.11 3.89 19 5 19H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
                             <span>6</span>
                         </button>
                         <button class="tweet-action-btn action-like" aria-label="Like">
@@ -410,9 +421,10 @@
                 </div>
             </article>
 
-            <!-- ==================== Profile Section ==================== -->
-            <div class="profile-section">
-                <h1 id="profile" class="profile-section-header trn" data-en="Profile" data-it="Profilo">Profile</h1>
+            </div>
+
+            <div class="section-panel" data-section="profile" id="profile">
+                <h1 class="profile-section-header trn" data-en="Profile" data-it="Profilo">Profile</h1>
                 <article class="profile-post">
                 <div class="profile-cover">
                     <img src="profile-header.jpg" alt="Alice Mancosu">
@@ -447,53 +459,115 @@
                         <span><strong>7</strong> Following</span>
                         <span><strong>613</strong> Followers</span>
                     </div>
-                    <div class="profile-tabs">
-                        <button class="profile-tab active" data-tab="summary">Summary</button>
+                    <div class="profile-tabs" data-active="history">
+                        <button class="profile-tab active" data-tab="history">History</button>
                         <button class="profile-tab" data-tab="skills">Skills</button>
-                        <button class="profile-tab" data-tab="history">History</button>
                     </div>
                     <div class="profile-tab-content">
-                        <div class="profile-tab-panel active" data-panel="summary">
-                            <p class="profile-tab-text">Alice is a UX designer with a passion for creating intuitive, accessible interfaces. Her work focuses on user research, information architecture, and interactive prototyping.</p>
-                        </div>
-                        <div class="profile-tab-panel" data-panel="skills">
-                            <p class="profile-tab-text">User Research · Wireframing · Prototyping · Interaction Design · Visual Design · Figma · Adobe XD · Design Systems</p>
-                        </div>
-                        <div class="profile-tab-panel" data-panel="history">
+                        <div class="profile-tab-panel active" data-panel="history">
                             <div class="history-timeline">
-                                <div class="history-event">
+                                <div class="history-event history-event-continues">
+                                    <div class="history-event-icon" aria-hidden="true">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                                            <path d="M6 12v5c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-5"/>
+                                        </svg>
+                                    </div>
                                     <div class="history-event-year trn" data-en="2023–2026" data-it="2023–2026">2023–2026</div>
                                     <div class="history-event-title trn" data-en="Master's degree in theory and technology of communication" data-it="Laurea magistrale in teoria e tecnologia della comunicazione">Master's degree in theory and technology of communication</div>
                                     <div class="history-event-subtitle trn" data-en="University of Milan Bicocca" data-it="Università degli Studi di Milano-Bicocca">University of Milan Bicocca</div>
                                 </div>
                                 <div class="history-event">
+                                    <div class="history-event-icon" aria-hidden="true">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 3v4"/>
+                                            <path d="M8 5h8"/>
+                                            <path d="M4 19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7H4v12z"/>
+                                            <path d="M9 9h6"/>
+                                            <path d="M9 12h6"/>
+                                        </svg>
+                                    </div>
                                     <div class="history-event-year trn" data-en="2020–2023" data-it="2020–2023">2020–2023</div>
                                     <div class="history-event-title trn" data-en="Bachelor's degree in product design" data-it="Laurea triennale in design del prodotto">Bachelor's degree in product design</div>
                                     <div class="history-event-subtitle trn" data-en="Politecnico di Milano" data-it="Politecnico di Milano">Politecnico di Milano</div>
                                 </div>
                                 <div class="history-event">
+                                    <div class="history-event-icon" aria-hidden="true">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 22v-6"/>
+                                            <path d="M9 16v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4"/>
+                                            <path d="M12 2c2.5 0 4.5 1 5 3 2-1 3-2 5-3"/>
+                                        </svg>
+                                    </div>
                                     <div class="history-event-year trn" data-en="2015–2020" data-it="2015–2020">2015–2020</div>
                                     <div class="history-event-title trn" data-en="Beta phase" data-it="Fase beta">Beta phase</div>
                                     <div class="history-event-subtitle trn" data-en="Developing an interest for design" data-it="Sviluppo di un interesse per il design">Developing an interest for design</div>
                                 </div>
                                 <div class="history-event">
+                                    <div class="history-event-icon" aria-hidden="true">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <path d="M12 6v6l4 2"/>
+                                        </svg>
+                                    </div>
                                     <div class="history-event-year trn" data-en="2001" data-it="2001">2001</div>
                                     <div class="history-event-title trn" data-en="Spawn" data-it="Nascita">Spawn</div>
                                     <div class="history-event-subtitle trn" data-en="Milan, Italy" data-it="Milano, Italia">Milan, Italy</div>
+                                </div>
+</div>
+                            </div>
+                            <div class="skills-categories">
+                                <div class="skill-category">
+                                    <h3 class="skill-category-title">Languages</h3>
+                                    <div class="skill-tags">
+                                        <span class="skill-tag">English — C1</span>
+                                        <span class="skill-tag">Italian — native</span>
+                                    </div>
+                                </div>
+                            <div class="skill-category">
+                                <h3 class="skill-category-title">Hard Skills</h3>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">HTML/CSS</span>
+                                    <span class="skill-tag">JavaScript</span>
+                                    <span class="skill-tag">Web design principles</span>
+                                    <span class="skill-tag">UX design</span>
+                                    <span class="skill-tag">User research & framing</span>
+                                    <span class="skill-tag">Information architecture</span>
+                                    <span class="skill-tag">Wireframes</span>
+                                    <span class="skill-tag">Design systems</span>
+                                    <span class="skill-tag">Prototypes</span>
+                                    <span class="skill-tag">CMS management</span>
+                                    <span class="skill-tag">Web analytics</span>
+                                    <span class="skill-tag">Accessibility standards (WCAG)</span>
+                                    <span class="skill-tag">SEO fundamentals</span>
+                                    <span class="skill-tag">AI & automation in design workflows</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h3 class="skill-category-title">Software</h3>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Figma</span>
+                                    <span class="skill-tag">WordPress</span>
+                                    <span class="skill-tag">Adobe Creative Suite</span>
+                                    <span class="skill-tag">Microsoft Office</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h3 class="skill-category-title">Soft Skills</h3>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Attention to detail</span>
+                                    <span class="skill-tag">High quality standards</span>
+                                    <span class="skill-tag">Teamwork and communication</span>
+                                    <span class="skill-tag">Open mindset</span>
+                                    <span class="skill-tag">Problem-solving</span>
+                                    <span class="skill-tag">Creative approach</span>
+                                    <span class="skill-tag">Quick to learn</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </article>
-
-            <!-- ==================== Footer Post ==================== -->
-            <article class="footer-post">
-                <div class="footer-post-body">
-                    <p class="footer-post-text trn" data-en="That's all for now!" data-it="Per adesso questo è quanto!">That's all for now!</p>
-                </div>
-            </article>
-            </div>
 
         </main>
 
@@ -538,7 +612,7 @@
                 </div>
             </div>
 
-            <!-- Language Switcher -->
+            <!-- Language & Theme Switcher -->
             <div class="right-sidebar-lang">
                 <button class="lang-btn active" id="lang-en" aria-label="English">
                     <svg class="flag-icon" viewBox="0 0 60 30" width="24" height="12">
@@ -560,6 +634,10 @@
                         <rect x="2" width="1" height="2" fill="#CE2B37"/>
                     </svg>
                     <span>IT</span>
+                </button>
+                <button class="theme-btn" id="theme-toggle" aria-label="Toggle dark mode">
+                    <svg class="theme-icon theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/><path d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36M19.78 4.22L18.36 5.64M5.64 18.36M1 12H3M21 12H23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    <svg class="theme-icon theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </button>
             </div>
 

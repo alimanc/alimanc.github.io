@@ -5,6 +5,22 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
+    // Toast Notification — Under Construction
+    // ==========================================================================
+    const toast = document.getElementById('construction-toast');
+    if (toast) {
+        // Small delay to ensure page is rendered
+        requestAnimationFrame(() => {
+            toast.classList.add('show');
+            // Stay visible for 3.5 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                toast.classList.add('hide');
+            }, 3500);
+        });
+    }
+
+    // ==========================================================================
     // 1. Dual-Language Translation System
     // ==========================================================================
     const langEnBtn = document.getElementById('lang-en');

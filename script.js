@@ -298,11 +298,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
 
-                    // Dynamically clamp description to fit available space
-                    const textAreaHeight = isMobile ? imgWidth : imgHeight;
-                    const lineHeight = 12.8;
-                    const maxLines = Math.max(2, Math.floor((textAreaHeight - 60) / lineHeight));
-                    plantsDesc.style.webkitLineClamp = maxLines;
+                    // Clamp description to 3 lines
+                    plantsDesc.style.webkitLineClamp = 3;
                     plantsDesc.style.display = '-webkit-box';
                     plantsDesc.style.webkitBoxOrient = 'vertical';
                     plantsDesc.style.overflow = 'hidden';
@@ -320,25 +317,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ==========================================================================
-    // 6. Profile Tabs — Summary / Skills / History
-    // ==========================================================================
-    const profileTabs = document.querySelectorAll('.profile-tab');
-    const profilePanels = document.querySelectorAll('.profile-tab-panel');
-    const profileTabsContainer = document.querySelector('.profile-tabs');
-
-    profileTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const target = tab.getAttribute('data-tab');
-            profileTabs.forEach(t => t.classList.remove('active'));
-            profilePanels.forEach(p => p.classList.remove('active'));
-            tab.classList.add('active');
-            document.querySelector(`.profile-tab-panel[data-panel="${target}"]`).classList.add('active');
-            if (profileTabsContainer) {
-                profileTabsContainer.setAttribute('data-active', target);
-            }
-        });
-    });
 
     // ==========================================================================
     // Like Button Toggle

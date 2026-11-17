@@ -30,7 +30,7 @@
     /* Layout */
     --sidebar-width: 68px;
     --sidebar-width-xl: 275px;
-    --timeline-min-width: 500px;
+    --timeline-min-width: 320px;
     --timeline-max-width: 770px;
     --right-sidebar-width: 350px;
 
@@ -308,7 +308,7 @@ button {
 .tweet {
     display: flex;
     gap: 0.75rem;
-    padding: 1rem 1rem 0 1rem;
+    padding: 1rem 1.5rem 0 1.5rem;
     border-bottom: 1px solid var(--color-border);
     transition: background-color var(--transition-fast);
 }
@@ -482,7 +482,7 @@ button {
 }
 
 #plants-desc {
-    -webkit-line-clamp: unset;
+    -webkit-line-clamp: 3;
 }
 
 /* Card Badges */
@@ -579,8 +579,10 @@ button {
 }
 
 .profile-post-avatar svg {
-    width: 64px;
-    height: 64px;
+    width: auto;
+    height: auto;
+    max-width: 98px;
+    max-height: 98px;
 }
 
 .profile-post-title {
@@ -623,6 +625,9 @@ button {
     align-items: center;
     gap: 1.5rem;
     margin-top: 0.75rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
     font-size: 0.85rem;
     color: var(--color-text-secondary);
 }
@@ -633,87 +638,24 @@ button {
     color: var(--color-text-primary);
 }
 
-.profile-tabs {
-    display: flex;
-    gap: 0;
-    margin-top: 1.5rem;
-    border-bottom: 1px solid var(--color-border);
-    position: relative;
-}
-
-.profile-tabs::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    height: 2px;
-    width: 50%;
-    background-color: var(--color-accent);
-    transition: transform 0.3s ease;
-    z-index: 1;
-}
-
-.profile-tabs[data-active="history"]::after {
-    transform: translateX(0);
-}
-
-.profile-tabs[data-active="skills"]::after {
-    transform: translateX(100%);
-}
-
-.profile-tab {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    transition: color 0.15s;
-    font-family: inherit;
-    position: relative;
-    z-index: 2;
-}
-
-.profile-tab:hover {
-    color: var(--color-text-primary);
-}
-
-.profile-tab.active {
-    color: var(--color-accent);
-}
-
-.profile-tab-content {
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-}
-
-.profile-tab-panel {
-    grid-row: 1;
-    grid-column: 1;
-    visibility: hidden;
-    opacity: 0;
-    font-size: 0.95rem;
-    color: var(--color-text-primary);
-    line-height: 1.6;
-    transition: opacity 0.2s;
-}
-
-.profile-tab-panel.active {
-    visibility: visible;
-    opacity: 1;
-}
-
 /* Skills Categories */
+
+
 .skills-categories {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 1rem;
+    margin-bottom: 5rem;
+}
+
+.section-header {
+    font-family: 'Momo Trust Display', 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-text-primary);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
 }
 
 .skill-category {
@@ -723,11 +665,11 @@ button {
 }
 
 .skill-category-title {
-    font-size: 0.7rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-text-secondary);
+    letter-spacing: 0.02em;
+    color: var(--color-text-primary);
 }
 
 .skill-tags {
@@ -750,54 +692,57 @@ button {
 /* History Timeline */
 .history-timeline {
     position: relative;
-    padding-left: 2.5rem;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
 }
 
 .history-timeline::before {
     content: '';
     position: absolute;
     left: 20px;
-    top: 0.5rem;
-    bottom: 0.5rem;
-    width: 2px;
+    top: 50px;
+    bottom: 50px;
+    width: 3px;
     background-color: var(--color-border);
 }
 
 .history-event {
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .history-event-icon {
-    position: absolute;
-    left: -2.5rem;
-    top: 0;
     width: 40px;
     height: 40px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--color-bg);
+    position: relative;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    border: 2px solid var(--color-bg);
     z-index: 1;
 }
 
 .history-event-icon svg {
     width: 18px;
     height: 18px;
+    position: relative;
+    z-index: 1;
 }
 
-.history-event::before {
-    content: '';
-    position: absolute;
-    left: -2.5rem;
-    top: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--color-accent);
-    border: 2px solid var(--color-bg);
+.history-event-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 
 .history-event-year {
@@ -817,21 +762,17 @@ button {
     font-size: 0.9rem;
 }
 
-.history-event-continues::after {
-    content: '';
-    position: absolute;
-    left: 20px;
-    top: calc(100% + 0.5rem);
-    bottom: 0;
-    width: 2px;
-    background-color: var(--color-border);
-    z-index: -1;
-}
-
 @media (max-width: 420px) {
     .profile-post-avatar {
         width: 80px;
         height: 80px;
+    }
+    .profile-post-avatar svg {
+        max-width: 48px;
+        max-height: 48px;
+    }
+    .tweet {
+        padding: 1rem 1rem 0 1rem;
     }
 }
 
@@ -1369,15 +1310,12 @@ button {
        }
    }
 
-   /* Tiny screens */
-   @media (max-width: 420px) {
-       html {
-           font-size: 14px;
-       }
-       .tweet {
-           padding: 0.75rem 0.75rem 0 0.75rem;
-       }
-       .tweet-card {
+    /* Tiny screens */
+    @media (max-width: 420px) {
+        html {
+            font-size: 14px;
+        }
+        .tweet-card {
            flex-direction: column;
        }
        .tweet-card-image {
@@ -1386,11 +1324,11 @@ button {
            border-right: none;
            border-bottom: 1px solid var(--color-border);
        }
-       #plants-card .tweet-card-image {
-           aspect-ratio: 1/1;
-           min-height: auto;
-           height: auto;
-       }
+        #plants-card .tweet-card-image {
+            height: 120px;
+            min-height: 120px;
+            aspect-ratio: auto;
+        }
        #plants-card .tweet-card-image #plants-thumbnail {
            width: 100% !important;
            height: 100% !important;
